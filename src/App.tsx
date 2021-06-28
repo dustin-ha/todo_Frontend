@@ -11,6 +11,13 @@ function App() {
         <div>
           <div className="split liste">
             <p>Todos</p>
+            <div className="split todos">
+                <p>Namen</p>
+            </div>
+            <div className="split fertig">
+              <p>Fertig</p>
+            </div>
+
           </div>
         </div>
         <div>

@@ -21,6 +21,21 @@
   width: 25%;
 }
 
+.todos{
+  left: 0;
+  width:  50%;
+  text-align: left;
+  border-left: solid;
+  border-color: #282c34;
+  border-width: 40px;
+}
+
+.fertig{
+  right: 0;
+  width: 40%;
+  text-align: left;
+}
+
 .Parameter{
   text-align: left;
   border: solid;
