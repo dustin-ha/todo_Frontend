@@ -23,16 +23,22 @@ function App() {
         </div>
         <div>
           <div className="split liste">
-            <p>Todos</p>
             <div className="split todos">
-              <p>Namen</p>
-              <ul>
-                { 
-                }
-              </ul>
-            </div>
-            <div className="split fertig">
-              <p>Fertig</p>
+              <table>
+                <tr>
+                  <th>To-DO</th>
+                  <th>Fertig</th>
+                </tr>
+                <tr>
+                  <td>duschen</td>
+                  <td>ja</td>
+                </tr>
+                <tr>
+                  <td>Bluemen gießen</td>
+                  <td>nein</td>
+                </tr>
+              </table>
+
             </div>
           </div>
         </div>
