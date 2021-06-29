@@ -1,8 +1,20 @@
 import React from 'react';
 import './App.css';
 
+//variable.map((value) => <li> {value}</li>)
+
+interface Todo {
+  id: number;
+  name: string;
+  erstellt: string;
+  ende: number;
+  gruppe: string;
+  prio: number;  //0 bis 3
+  fertig: boolean;
+  delete: boolean;
+}
+
 function App() {
-  const variable: number[] = [1, 2, 3, 4, 5];
   return (
     <body>
       <div className="App">
@@ -26,6 +38,7 @@ function App() {
                   <td>nein</td>
                 </tr>
               </table>
+
             </div>
           </div>
         </div>
