@@ -14,6 +14,10 @@ interface Todo {
   delete: boolean;
 }
 
+const todos: Todo[] = [{ id: 1, name: "Wäsche waschen", erstellt: "heute", ende: 1200, gruppe: "Haushalt", prio: 0, fertig: false, delete: false },
+{ id: 2, name: "Mit dem Hung raus gehen", erstellt: "heute", ende: 1315, gruppe: "Egal", prio: 2, fertig: true, delete: false }
+]
+
 function App() {
   return (
     <body>
@@ -23,23 +27,20 @@ function App() {
         </div>
         <div>
           <div className="split liste">
-            <div className="split todos">
-              <table>
-                <tr>
-                  <th>To-DO</th>
-                  <th>Fertig</th>
-                </tr>
-                <tr>
-                  <td>duschen</td>
-                  <td>ja</td>
-                </tr>
-                <tr>
-                  <td>Bluemen gießen</td>
-                  <td>nein</td>
-                </tr>
-              </table>
-
-            </div>
+            <table>
+              <tr>
+                <th>To-DO</th>
+                <th>Fertig</th>
+              </tr>
+              <tr>
+                {
+                  todos.map((value) => <tr>
+                    <td> {value.name}</td>
+                    <td> {value.fertig.toString()}</td>
+                  </tr>)
+                }
+              </tr>
+            </table>
           </div>
         </div>
         <div>
