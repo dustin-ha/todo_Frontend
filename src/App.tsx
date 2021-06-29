@@ -45,6 +45,10 @@ function App() {
                 <thead>
                   <tr>
                     <th>To-Do</th>
+                    <th>Gruppe</th>
+                    <th>Priorität</th>
+                    <th>Endzeit</th>
+                    <th>Erstellt</th>
                     <th>Fertig</th>
                   </tr>
                 </thead>
@@ -52,7 +56,11 @@ function App() {
                   {
                     todos.map((value) => <tr key={value.id}>
                       <td> {value.name}</td>
-                      <td> {value.id.toString()}</td>
+                      <td> {value.gruppe.toString()}</td>
+                      <td> {value.prio.toString()}</td>
+                      <td> {value.ende.toString()}</td>
+                      <td> {value.erstellt.toString()}</td>
+                      <td> {value.fertig.toString()}</td>
                     </tr>)}
                 </tbody>
               </table>
