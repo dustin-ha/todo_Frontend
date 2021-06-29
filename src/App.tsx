@@ -32,6 +32,12 @@ function App() {
     }
   }, [todos])
 
+  function fertig(vaFertig: boolean) {
+    if (vaFertig) {
+      return "&#9745;";
+    }
+  }
+
   return (
     <div className="App">
       <div className="titel">
@@ -60,7 +66,7 @@ function App() {
                       <td> {value.prio.toString()}</td>
                       <td> {value.ende.toString()}</td>
                       <td> {value.erstellt.toString()}</td>
-                      <td> {value.fertig.toString()}</td>
+                      <td> {fertig(value.fertig)}</td>
                     </tr>)}
                 </tbody>
               </table>
