@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 
 function App() {
-  const variable: number[]= [1,2,3,4,5];
+  const variable: number[] = [1, 2, 3, 4, 5];
   return (
     <body>
       <div className="App">
@@ -11,17 +11,21 @@ function App() {
         </div>
         <div>
           <div className="split liste">
-            <p>Todos</p>
             <div className="split todos">
-              <p>Namen</p>
-              <ul>
-                { 
-                 variable.map((value) => <li> {value}</li>)
-                }
-              </ul>
-            </div>
-            <div className="split fertig">
-              <p>Fertig</p>
+              <table>
+                <tr>
+                  <th>To-DO</th>
+                  <th>Fertig</th>
+                </tr>
+                <tr>
+                  <td>duschen</td>
+                  <td>ja</td>
+                </tr>
+                <tr>
+                  <td>Bluemen gießen</td>
+                  <td>nein</td>
+                </tr>
+              </table>
             </div>
           </div>
         </div>
