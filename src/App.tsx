@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 
 function App() {
+  const variable: number[]= [1,2,3,4,5];
   return (
     <body>
       <div className="App">
@@ -12,26 +13,30 @@ function App() {
           <div className="split liste">
             <p>Todos</p>
             <div className="split todos">
-                <p>Namen</p>
+              <p>Namen</p>
+              <ul>
+                { 
+                 variable.map((value) => <li> {value}</li>)
+                }
+              </ul>
             </div>
             <div className="split fertig">
               <p>Fertig</p>
             </div>
-
           </div>
         </div>
         <div>
           <div className="split eingabe">
             <h4>Neu erstellen</h4> <br></br>
             <div className="Parameter">
-              <label htmlFor="fname">Name:</label><br></br>
-              <input className="input" type="text" id="fname" name="firstname" placeholder="Aufgabe"></input>
+              <label htmlFor="fname"> Name:</label><br></br>
+              <input className="input" type="text" id="fname" name="name" placeholder="Aufgabe"></input>
               <br></br><br></br>
               <label htmlFor="lname">Gruppe:</label><br></br>
-              <input className="input" type="text" id="lname" name="lastname" placeholder="Standard"></input>
+              <input className="input" type="text" id="lname" name="gruppe" placeholder="Standard"></input>
               <br></br><br></br>
               <label htmlFor="lname">Datum</label><br></br>
-              <input className="input" type="text" id="lname" name="lastname" placeholder="DD/MM"></input>
+              <input className="input" type="text" id="lname" name="datum" placeholder="DD/MM"></input>
               <br></br><br></br>
               <label htmlFor="country">Priorität:</label><br></br>
               <select className="submit" id="country" name="Prio">
