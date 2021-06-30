@@ -32,12 +32,6 @@ function App() {
     }
   }, [todos])
 
-  function fertig(vaFertig: boolean) {
-    if (vaFertig) {
-      return "&#9745;";
-    }
-  }
-
   const createMarkFinished = (id: Todo["id"]) => async (): Promise<void> => {
     await fetch(`http://localhost:3330/fertig?id=${id}`, { method: "GET" });
     loadTodos();
@@ -71,7 +65,7 @@ function App() {
                       <td> {value.prio.toString()}</td>
                       <td> {value.ende.toString()}</td>
                       <td> {value.erstellt.toString()}</td>
-                      <td> {value.fertig ? <>Erledigt</> : <button onClick={createMarkFinished(value.id)}>Fertig</button>}</td>
+                      <td> {value.fertig ? <>&#9745;</> : <button onClick={createMarkFinished(value.id)}>Fertig</button>}</td>
                     </tr>)}
                 </tbody>
               </table>
