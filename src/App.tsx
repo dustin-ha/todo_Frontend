@@ -42,8 +42,7 @@ function App() {
   };
 
   const erstellen = () => async (): Promise<void> => {
-    console.log(Xname)
-    await fetch(`http://localhost:3330/new`, { method: "POST" });
+    await fetch("http://localhost:3330/new?name="+Xname+"&gruppe="+Xgruppe+"&prio="+Xprio+"&ende="+Xende, { method: "POST" });
     loadTodos();
   };
 
