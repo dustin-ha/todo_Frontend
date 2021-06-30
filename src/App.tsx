@@ -37,7 +37,7 @@ function App() {
     loadTodos();
   };
 
-  const erstellen = (name: HTMLElement | null, gruppe: HTMLElement | null, prio: HTMLElement | null, ende: HTMLElement | null) => async (): Promise<void> => {
+  const erstellen = (name: Todo["name"] | undefined, gruppe: Todo["gruppe"] | undefined, prio: Todo["prio"] | undefined, ende: Todo["ende"] | undefined) => async (): Promise<void> => {
     await fetch(`http://localhost:3330/new?name=${name}gruppe=${gruppe}prio=${prio}ende=${ende}`, { method: "POST" });
     loadTodos();
   };
@@ -100,7 +100,7 @@ function App() {
             <br /><br />
           </div>
           <div>
-            <input onClick={erstellen(document.getElementById("name"), document.getElementById("gruppe"),document.getElementById("prio"),document.getElementById("ende"))} className="submit" type="submit" value="Erstellen" />
+            <input onClick={erstellen(document.getElementById("name")?.innerText, document.getElementById("gruppe")?.innerText,parseInt(document.getElementById("prio")?.innerText ?? "0000"),parseInt(document.getElementById("ende")?.innerText ?? "0000"))} className="submit" type="submit" value="Erstellen" />
           </div>
         </div>
       </div>
