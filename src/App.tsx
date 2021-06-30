@@ -38,6 +38,11 @@ function App() {
     }
   }
 
+  const createMarkFinished = (id: Todo["id"]) => async (): Promise<void> => {
+    await fetch(`http://localhost:3330/fertig?id=${id}`, { method: "GET" });
+    loadTodos();
+  };
+
   return (
     <div className="App">
       <div className="titel">
@@ -66,7 +71,7 @@ function App() {
                       <td> {value.prio.toString()}</td>
                       <td> {value.ende.toString()}</td>
                       <td> {value.erstellt.toString()}</td>
-                      <td> {fertig(value.fertig)}</td>
+                      <td> {value.fertig ? <>Erledigt</> : <button onClick={createMarkFinished(value.id)}>Fertig</button>}</td>
                     </tr>)}
                 </tbody>
               </table>
@@ -75,28 +80,28 @@ function App() {
       </div>
       <div>
         <div className="split eingabe">
-          <h4>Neu erstellen</h4> <br></br>
+          <h4>Neu erstellen</h4> <br/>
           <div className="Parameter">
-            <label htmlFor="fname"> Name:</label><br></br>
-            <input className="input" type="text" id="fname" name="name" placeholder="Aufgabe"></input>
-            <br></br><br></br>
-            <label htmlFor="lname">Gruppe:</label><br></br>
-            <input className="input" type="text" id="lname" name="gruppe" placeholder="Standard"></input>
-            <br></br><br></br>
-            <label htmlFor="lname">Datum</label><br></br>
-            <input className="input" type="text" id="lname" name="datum" placeholder="DD/MM"></input>
-            <br></br><br></br>
-            <label htmlFor="country">Priorität:</label><br></br>
+            <label htmlFor="fname"> Name:</label><br/>
+            <input className="input" type="text" id="fname" name="name" placeholder="Aufgabe" />
+            <br/><br/>
+            <label htmlFor="lname">Gruppe:</label><br/>
+            <input className="input" type="text" id="lname" name="gruppe" placeholder="Standard" />
+            <br/><br/>
+            <label htmlFor="lname">Datum</label><br/>
+            <input className="input" type="text" id="lname" name="datum" placeholder="DD/MM" />
+            <br/><br/>
+            <label htmlFor="country">Priorität:</label><br/>
             <select className="submit" id="country" name="Prio">
               <option value="0">Geringe Priorität</option>
               <option value="1">Normale Priorität</option>
               <option value="2">Hohe Priorität</option>
               <option value="3">Sehr hohe Priorität</option>
             </select>
-            <br></br><br></br>
+            <br/><br/>
           </div>
           <div>
-            <input className="submit" type="submit" value="Erstellen"></input>
+            <input className="submit" type="submit" value="Erstellen" />
           </div>
         </div>
       </div>
