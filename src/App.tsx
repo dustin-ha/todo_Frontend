@@ -16,6 +16,10 @@ interface Todo {
 
 function App() {
   const [todos, setTodos] = useState<Todo[] | null>(null)
+  const [Xname, setName] = useState('')
+  const [Xgruppe, setGruppe] = useState('')
+  const [Xprio, setPrio] = useState('')
+  const [Xende, setEnde] = useState('')
 
   async function loadTodos() {
     const requestOptions = {
@@ -38,8 +42,7 @@ function App() {
   };
 
   const erstellen = () => async (): Promise<void> => {
-    const name: string = document.getElementById("name")?.textContent?.toString() ?? "Hilfe"
-    console.log(name)
+    console.log(Xname)
     await fetch(`http://localhost:3330/new`, { method: "POST" });
     loadTodos();
   };
@@ -84,16 +87,16 @@ function App() {
           <h4>Neu erstellen</h4> <br />
           <div className="Parameter">
             <label htmlFor="name"> Name:</label><br />
-            <input className="input" type="text" id="name" name="name" placeholder="Aufgabe" />
+            <input onChange={event => setName(event.target.value)} className="input" type="text" id="name" name="name" placeholder="Aufgabe" />
             <br /><br />
             <label htmlFor="gruppe">Gruppe:</label><br />
-            <input className="input" type="text" id="gruppe" name="gruppe" placeholder="Standard" />
+            <input onChange={event => setGruppe(event.target.value)} className="input" type="text" id="gruppe" name="gruppe" placeholder="Standard" />
             <br /><br />
             <label htmlFor="datum">Datum</label><br />
-            <input className="input" type="text" id="Datum" name="datum" placeholder="DD/MM" />
+            <input onChange={event => setEnde(event.target.value)} className="input" type="text" id="Datum" name="datum" placeholder="DD/MM" />
             <br /><br />
             <label htmlFor="prio">Priorität:</label><br />
-            <select className="submit" id="prio" name="Prio">
+            <select onChange={event => setPrio(event.target.value)} className="submit" id="prio" name="Prio">
               <option value="0">Geringe Priorität</option>
               <option value="1">Normale Priorität</option>
               <option value="2">Hohe Priorität</option>
