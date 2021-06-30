@@ -37,6 +37,11 @@ function App() {
     loadTodos();
   };
 
+  const erstellen = (name: HTMLElement | null, gruppe: HTMLElement | null, prio: HTMLElement | null, ende: HTMLElement | null) => async (): Promise<void> => {
+    await fetch(`http://localhost:3330/new?name=${name}gruppe=${gruppe}prio=${prio}ende=${ende}`, { method: "POST" });
+    loadTodos();
+  };
+
   return (
     <div className="App">
       <div className="titel">
@@ -74,28 +79,28 @@ function App() {
       </div>
       <div>
         <div className="split eingabe">
-          <h4>Neu erstellen</h4> <br/>
+          <h4>Neu erstellen</h4> <br />
           <div className="Parameter">
-            <label htmlFor="fname"> Name:</label><br/>
-            <input className="input" type="text" id="fname" name="name" placeholder="Aufgabe" />
-            <br/><br/>
-            <label htmlFor="lname">Gruppe:</label><br/>
-            <input className="input" type="text" id="lname" name="gruppe" placeholder="Standard" />
-            <br/><br/>
-            <label htmlFor="lname">Datum</label><br/>
-            <input className="input" type="text" id="lname" name="datum" placeholder="DD/MM" />
-            <br/><br/>
-            <label htmlFor="country">Priorität:</label><br/>
-            <select className="submit" id="country" name="Prio">
+            <label htmlFor="name"> Name:</label><br />
+            <input className="input" type="text" id="name" name="name" placeholder="Aufgabe" />
+            <br /><br />
+            <label htmlFor="gruppe">Gruppe:</label><br />
+            <input className="input" type="text" id="gruppe" name="gruppe" placeholder="Standard" />
+            <br /><br />
+            <label htmlFor="datum">Datum</label><br />
+            <input className="input" type="text" id="Datum" name="datum" placeholder="DD/MM" />
+            <br /><br />
+            <label htmlFor="prio">Priorität:</label><br />
+            <select className="submit" id="prio" name="Prio">
               <option value="0">Geringe Priorität</option>
               <option value="1">Normale Priorität</option>
               <option value="2">Hohe Priorität</option>
               <option value="3">Sehr hohe Priorität</option>
             </select>
-            <br/><br/>
+            <br /><br />
           </div>
           <div>
-            <input className="submit" type="submit" value="Erstellen" />
+            <input onClick={erstellen(document.getElementById("name"), document.getElementById("gruppe"),document.getElementById("prio"),document.getElementById("ende"))} className="submit" type="submit" value="Erstellen" />
           </div>
         </div>
       </div>
