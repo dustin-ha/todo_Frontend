@@ -16,12 +16,18 @@ interface Todo {
 
 function App() {
   const [todos, setTodos] = useState<Todo[] | null>(null)
+  const [Xname, setName] = useState('')
+  const [Xgruppe, setGruppe] = useState('')
+  const [Xprio, setPrio] = useState('')
+  const [Xende, setEnde] = useState('')
+  const [Xsort, setSor] = useState('')
+  const [Xricht, setRicht] = useState('')
 
   async function loadTodos() {
     const requestOptions = {
       method: 'GET'
     };
-    const response = await fetch("http://localhost:3330/", requestOptions)
+    const response = await fetch("http://localhost:3330/?sortieren=" + Xsort + "&richtung=" + Xricht, requestOptions)
     const resTodos = await response.json()
     setTodos(resTodos);
   }
@@ -44,10 +50,13 @@ function App() {
     loadTodos();
   };
 
+  const deleteTodo = (id: Todo["id"]) => async (): Promise<void> => {
+    await fetch(`http://localhost:3330/delete?id=${id}`, { method: "DELETE" });
+    loadTodos();
+  };
+
   const erstellen = () => async (): Promise<void> => {
-    const name: string = document.getElementById("name")?.textContent?.toString() ?? "Hilfe"
-    console.log(name)
-    await fetch(`http://localhost:3330/new`, { method: "POST" });
+    await fetch("http://localhost:3330/new?name=" + Xname + "&gruppe=" + Xgruppe + "&prio=" + Xprio + "&ende=" + Xende, { method: "POST" });
     loadTodos();
   };
 
@@ -58,6 +67,21 @@ function App() {
           <button className="darkmodebutton" onClick={toggleDarkmode()}> &#127774; / &#127769; </button>
         </div>
         <h1>ToDo - Liste</h1>
+        <div className="splitTitel liste">
+          <div className="sortArea">
+            <br></br><br></br><br></br>
+            <select className="sortierButton" onChange={event => setSor(event.target.value)} onClick={event => loadTodos()} id="SortierungDerListe" name="SortierungDerListe">
+              <option value="name">ToDo-Name</option>
+              <option value="gruppe">Gruppe</option>
+              <option value="prio">Priorität</option>
+              <option value="erstellt">Erstellt</option>
+            </select>
+            <select className="sortierButton" onChange={event => setRicht(event.target.value)} onClick={event => loadTodos()} id="aufAbSteigend" name="aufAbSteigend">
+              <option value="auf">Aufsteigend</option>
+              <option value="ab">Absteigend</option>
+            </select>
+          </div>
+        </div>
       </div>
       <div>
         <div className="split liste">
@@ -72,6 +96,7 @@ function App() {
                     <th>Endzeit</th>
                     <th>Erstellt</th>
                     <th>Fertig</th>
+                    <th>Löschen</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -83,6 +108,7 @@ function App() {
                       <td> {value.ende.toString()}</td>
                       <td> {value.erstellt.toString()}</td>
                       <td> {value.fertig ? <>&#9745;</> : <button onClick={createMarkFinished(value.id)}>Fertig</button>}</td>
+                      <td> {<button onClick={deleteTodo(value.id)}>Löschen</button>}</td>
                     </tr>)}
                 </tbody>
               </table>
@@ -94,16 +120,16 @@ function App() {
           <h4>Neu erstellen</h4> <br />
           <div className="Parameter">
             <label htmlFor="name"> Name:</label><br />
-            <input className="input" type="text" id="name" name="name" placeholder="Aufgabe" />
+            <input onChange={event => setName(event.target.value)} className="input" type="text" id="name" name="name" placeholder="Aufgabe" />
             <br /><br />
             <label htmlFor="gruppe">Gruppe:</label><br />
-            <input className="input" type="text" id="gruppe" name="gruppe" placeholder="Standard" />
+            <input onChange={event => setGruppe(event.target.value)} className="input" type="text" id="gruppe" name="gruppe" placeholder="Standard" />
             <br /><br />
             <label htmlFor="datum">Datum</label><br />
-            <input className="input" type="text" id="Datum" name="datum" placeholder="DD/MM" />
+            <input onChange={event => setEnde(event.target.value)} className="input" type="text" id="Datum" name="datum" placeholder="DD/MM" />
             <br /><br />
             <label htmlFor="prio">Priorität:</label><br />
-            <select className="submit" id="prio" name="Prio">
+            <select onChange={event => setPrio(event.target.value)} className="submit" id="prio" name="Prio">
               <option value="0">Geringe Priorität</option>
               <option value="1">Normale Priorität</option>
               <option value="2">Hohe Priorität</option>

@@ -4,7 +4,24 @@
   z-index: 1;
   top: 1;
   overflow-x: hidden;
-  
+}
+
+.splitTitel {
+  height: 100%;
+  position: fixed;
+  z-index: 0;
+  top: 0;
+  overflow-x: hidden;
+}
+
+.sortierButton{
+  width: 175px;
+  height: 45px;
+  margin-right: 10px;
+}
+
+.sortArea{
+  text-align: right;
 }
 body{
   background-color: #191e27;
