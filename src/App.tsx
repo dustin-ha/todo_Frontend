@@ -23,6 +23,7 @@ function App() {
   const [Xende, setEnde] = useState('')
   const [Xsort, setSor] = useState('')
   const [Xricht, setRicht] = useState('')
+  const [edit, setEdit] = useState('')
 
   async function loadTodos() {
     const requestOptions = {
@@ -56,6 +57,12 @@ function App() {
 
   const editTodo = (id: Todo["id"]) => async (): Promise<void> => {
     setEditingTodo(id)
+  }
+
+  const sendEditTodo = () => async (): Promise<void> => {
+    console.log("Send Update")
+    setEditingTodo(0)
+    loadTodos()
   }
 
   const erstellen = () => async (): Promise<void> => {
@@ -105,7 +112,7 @@ function App() {
                 <tbody>
                   {
                     todos.map((value) => <tr key={value.id}>
-                      <td onDoubleClick={editTodo(value.id)}> {editingTodo ===  value.id ? <span> wir bearbeitet </span> : value.name}</td>
+                      <td onDoubleClick={editTodo(value.id)}> {editingTodo ===  value.id ? <input onDoubleClick={sendEditTodo()} onChange={event => setEdit(event.target.value)} type="text" id="editName" name="editName" placeholder={value.name}/> : value.name}</td>
                       <td> {value.gruppe.toString()}</td>
                       <td> {value.prio.toString()}</td>
                       <td> {value.ende.toString()}</td>
