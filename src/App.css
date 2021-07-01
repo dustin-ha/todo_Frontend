@@ -6,13 +6,29 @@
   overflow-x: hidden;
   
 }
+body{
+  background-color: #191e27;
+}
 
 .liste{
   text-align: center;
   justify-content: top; 
+  background-color:#343d50;
   left: 0;
   width: 75%;
 }
+.darkmodebutton{
+  float:right;
+  float: top;
+  margin-right: 10px;
+  margin-top: 10px;
+  height: auto;
+  width: auto;
+  align-items: center;
+  color:white;
+  background-color: #343d50;
+}
+
 
 .eingabe{
   background-color: #242a36;
@@ -21,13 +37,24 @@
   width: 25%;
 }
 
+.light-mode .eingabe{
+  background-color:rgb(240, 84, 84);
+}
+
+.light-mode2 .liste{
+  color: black;
+  background-color:white
+}
+
+.light-mode3 .titel{
+  background-color: darkred;
+}
+
 .todos{
   left: 0;
   width:  50%;
   text-align: left;
-  border-left: solid;
-  border-color: #343d50;
-  border-width: 40px;
+  padding-left: 40px;
 }
 
 .fertig{
@@ -38,9 +65,9 @@
 
 .Parameter{
   text-align: left;
-  border: solid;
-  border-width: 20px;
-  border-color:  #242a36;
+  padding-left: 20px;
+  padding-right: 20px;
+  ;
 }
 
 .input{
@@ -60,16 +87,14 @@
   }
 }
 
+  
 .titel {
-  border: solid;
-  border-width: 10px;
-  border-color: #191e27;
   background-color: #191e27;
+  padding-left: 20px;
   text-align: left;
 }
 
 .App {
-  background-color: #343d50;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
