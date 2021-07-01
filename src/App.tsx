@@ -41,6 +41,11 @@ function App() {
     loadTodos();
   };
 
+  const deleteTodo = (id: Todo["id"]) => async(): Promise<void> => {
+    await fetch(`http://localhost:3330/delete?id=${id}`, { method: "DELETE" });
+    loadTodos();
+  };
+
   const erstellen = () => async (): Promise<void> => {
     await fetch("http://localhost:3330/new?name="+Xname+"&gruppe="+Xgruppe+"&prio="+Xprio+"&ende="+Xende, { method: "POST" });
     loadTodos();
@@ -64,6 +69,7 @@ function App() {
                     <th>Endzeit</th>
                     <th>Erstellt</th>
                     <th>Fertig</th>
+                    <th>Löschen</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -75,6 +81,7 @@ function App() {
                       <td> {value.ende.toString()}</td>
                       <td> {value.erstellt.toString()}</td>
                       <td> {value.fertig ? <>&#9745;</> : <button onClick={createMarkFinished(value.id)}>Fertig</button>}</td>
+                      <td> {<button onClick={deleteTodo(value.id)}>Löschen</button>}</td>
                     </tr>)}
                 </tbody>
               </table>
