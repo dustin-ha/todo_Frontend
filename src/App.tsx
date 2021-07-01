@@ -20,12 +20,14 @@ function App() {
   const [Xgruppe, setGruppe] = useState('')
   const [Xprio, setPrio] = useState('')
   const [Xende, setEnde] = useState('')
+  const [Xsort, setSor] = useState('')
+  const [Xricht, setRicht] = useState('')
 
   async function loadTodos() {
     const requestOptions = {
       method: 'GET'
     };
-    const response = await fetch("http://localhost:3330/", requestOptions)
+    const response = await fetch("http://localhost:3330/?sortieren=" + Xsort + "&richtung=" + Xricht, requestOptions)
     const resTodos = await response.json()
     setTodos(resTodos);
   }
@@ -41,8 +43,13 @@ function App() {
     loadTodos();
   };
 
+  const deleteTodo = (id: Todo["id"]) => async (): Promise<void> => {
+    await fetch(`http://localhost:3330/delete?id=${id}`, { method: "DELETE" });
+    loadTodos();
+  };
+
   const erstellen = () => async (): Promise<void> => {
-    await fetch("http://localhost:3330/new?name="+Xname+"&gruppe="+Xgruppe+"&prio="+Xprio+"&ende="+Xende, { method: "POST" });
+    await fetch("http://localhost:3330/new?name=" + Xname + "&gruppe=" + Xgruppe + "&prio=" + Xprio + "&ende=" + Xende, { method: "POST" });
     loadTodos();
   };
 
@@ -50,6 +57,21 @@ function App() {
     <div className="App">
       <div className="titel">
         <h1>ToDo - Liste</h1>
+        <div className="splitTitel liste">
+          <div className="sortArea">
+            <br></br><br></br><br></br>
+            <select className="sortierButton" onChange={event => setSor(event.target.value)} onClick={event => loadTodos()} id="SortierungDerListe" name="SortierungDerListe">
+              <option value="name">ToDo-Name</option>
+              <option value="gruppe">Gruppe</option>
+              <option value="prio">Priorität</option>
+              <option value="erstellt">Erstellt</option>
+            </select>
+            <select className="sortierButton" onChange={event => setRicht(event.target.value)} onClick={event => loadTodos()} id="aufAbSteigend" name="aufAbSteigend">
+              <option value="auf">Aufsteigend</option>
+              <option value="ab">Absteigend</option>
+            </select>
+          </div>
+        </div>
       </div>
       <div>
         <div className="split liste">
@@ -64,6 +86,7 @@ function App() {
                     <th>Endzeit</th>
                     <th>Erstellt</th>
                     <th>Fertig</th>
+                    <th>Löschen</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -75,6 +98,7 @@ function App() {
                       <td> {value.ende.toString()}</td>
                       <td> {value.erstellt.toString()}</td>
                       <td> {value.fertig ? <>&#9745;</> : <button onClick={createMarkFinished(value.id)}>Fertig</button>}</td>
+                      <td> {<button onClick={deleteTodo(value.id)}>Löschen</button>}</td>
                     </tr>)}
                 </tbody>
               </table>
