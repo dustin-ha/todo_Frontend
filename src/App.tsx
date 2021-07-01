@@ -38,6 +38,13 @@ function App() {
     }
   }, [todos])
 
+  const toggleDarkmode = () => async (): Promise<void> => {
+    let element = document.body;
+    element.classList.toggle("light-mode");
+    element.classList.toggle("light-mode2");
+    element.classList.toggle("light-mode3");
+  }
+
   const createMarkFinished = (id: Todo["id"]) => async (): Promise<void> => {
     await fetch(`http://localhost:3330/fertig?id=${id}`, { method: "GET" });
     loadTodos();
@@ -56,6 +63,9 @@ function App() {
   return (
     <div className="App">
       <div className="titel">
+        <div>
+          <button className="darkmodebutton" onClick={toggleDarkmode()}> &#127774; / &#127769; </button>
+        </div>
         <h1>ToDo - Liste</h1>
         <div className="splitTitel liste">
           <div className="sortArea">
@@ -133,6 +143,7 @@ function App() {
         </div>
       </div>
     </div>
+
   );
 }
 
