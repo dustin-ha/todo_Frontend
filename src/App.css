@@ -58,12 +58,12 @@ body{
   background-color:rgb(240, 84, 84);
 }
 
-.light-mode2 .liste{
+.light-mode .liste{
   color: black;
   background-color:white
 }
 
-.light-mode3 .titel{
+.light-mode .titel{
   background-color: darkred;
 }
 

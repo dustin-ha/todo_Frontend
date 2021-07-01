@@ -18,6 +18,7 @@ function App() {
   const [todos, setTodos] = useState<Todo[] | null>(null)
   const [Xname, setName] = useState('')
   const [Xgruppe, setGruppe] = useState('')
+  const [editingTodo, setEditingTodo] = useState <Todo["id"] | null>(null)
   const [Xprio, setPrio] = useState('')
   const [Xende, setEnde] = useState('')
   const [Xsort, setSor] = useState('')
@@ -41,8 +42,6 @@ function App() {
   const toggleDarkmode = () => async (): Promise<void> => {
     let element = document.body;
     element.classList.toggle("light-mode");
-    element.classList.toggle("light-mode2");
-    element.classList.toggle("light-mode3");
   }
 
   const createMarkFinished = (id: Todo["id"]) => async (): Promise<void> => {
@@ -54,6 +53,10 @@ function App() {
     await fetch(`http://localhost:3330/delete?id=${id}`, { method: "DELETE" });
     loadTodos();
   };
+
+  const editTodo = (id: Todo["id"]) => async (): Promise<void> => {
+    setEditingTodo(id)
+  }
 
   const erstellen = () => async (): Promise<void> => {
     await fetch("http://localhost:3330/new?name=" + Xname + "&gruppe=" + Xgruppe + "&prio=" + Xprio + "&ende=" + Xende, { method: "POST" });
@@ -67,7 +70,7 @@ function App() {
           <button className="darkmodebutton" onClick={toggleDarkmode()}> &#127774; / &#127769; </button>
         </div>
         <h1>ToDo - Liste</h1>
-        <div className="splitTitel liste">
+        <div className="splitTitel">
           <div className="sortArea">
             <br></br><br></br><br></br>
             <select className="sortierButton" onChange={event => setSor(event.target.value)} onClick={event => loadTodos()} id="SortierungDerListe" name="SortierungDerListe">
@@ -90,19 +93,19 @@ function App() {
               <table>
                 <thead>
                   <tr>
-                    <th>To-Do</th>
-                    <th>Gruppe</th>
-                    <th>Priorität</th>
-                    <th>Endzeit</th>
-                    <th>Erstellt</th>
-                    <th>Fertig</th>
-                    <th>Löschen</th>
+                    <th style={{width:"30%"}}>To-Do</th>
+                    <th style={{width:"19%"}}>Gruppe</th>
+                    <th style={{width:"1%"}}>Priorität</th>
+                    <th style={{width:"10%"}}>Enddatum</th>
+                    <th style={{width:"30%"}}>Erstellt</th>
+                    <th style={{width:"5%"}}>Fertig</th>
+                    <th style={{width:"5%"}}>Löschen</th>
                   </tr>
                 </thead>
                 <tbody>
                   {
                     todos.map((value) => <tr key={value.id}>
-                      <td> {value.name}</td>
+                      <td onDoubleClick={editTodo(value.id)}> {editingTodo ===  value.id ? <span> wir bearbeitet </span> : value.name}</td>
                       <td> {value.gruppe.toString()}</td>
                       <td> {value.prio.toString()}</td>
                       <td> {value.ende.toString()}</td>
