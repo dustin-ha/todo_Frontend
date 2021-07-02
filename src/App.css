@@ -18,10 +18,13 @@
   width: 175px;
   height: 45px;
   margin-right: 10px;
+  float: right;
 }
 
 .sortArea{
   text-align: right;
+  float: right;
+  width: 145vh;
 }
 body{
   background-color: #191e27;
