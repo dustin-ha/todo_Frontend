@@ -38,7 +38,7 @@ function App() {
   }
 
   useEffect(() => {
-    if (!todos) {
+    if (!todos[0]) {
       loadTodos()
     }
   }, [todos])
@@ -89,7 +89,7 @@ function App() {
     await fetch("http://localhost:3330/new?name=" + Xname + "&gruppe=" + Xgruppe + "&prio=" + Xprio + "&ende=" + Xende, { method: "POST" });
     loadTodos();
   };
-  loadTodos()
+
   return (
     <div className="App">
       <div className="titel">
