@@ -89,6 +89,13 @@ function App() {
 
   const erstellen = () => async (): Promise<void> => {
     await fetch("http://localhost:3330/new?name=" + Xname + "&gruppe=" + Xgruppe + "&prio=" + Xprio + "&ende=" + Xende, { method: "POST" });
+    const nameInput = document.getElementById('name') as HTMLInputElement;
+    nameInput.value = ''
+    const gruppeInput = document.getElementById('gruppe') as HTMLInputElement;
+    gruppeInput.value = ''
+    const datumInput = document.getElementById('Datum') as HTMLInputElement;
+    datumInput.value = ''
+
     loadTodos();
   };
 
