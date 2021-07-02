@@ -25,8 +25,8 @@ function App() {
   const [Xricht, setRicht] = useState('')
   const [editName, setEditName] = useState('')
   const [editGruppe, setEditGruppe] = useState('')
-  const [editPrio, setEditPrio] = useState('')
-  const [editEnde, setEditEnde] = useState('')
+  const [editPrio, setEditPrio] = useState(0)
+  const [editEnde, setEditEnde] = useState(0)
 
   async function loadTodos() {
     const requestOptions = {
@@ -64,12 +64,14 @@ function App() {
   };
 
   const editTodo = (id: Todo["id"]) => async (): Promise<void> => {
+    loadTodos()
     setEditingTodo(id)
-    if (todos[id]) {
-      setEditName(todos[id].name)
-      setEditGruppe(todos[id].name)
-      setEditEnde(todos[id].name)
-      setEditPrio(todos[id].name)
+    const ETodo = todos.find((todo) => todo.id == id)
+    if (ETodo) {
+      setEditName(ETodo.name)
+      setEditGruppe(ETodo.gruppe)
+      setEditEnde(ETodo.ende)
+      setEditPrio(ETodo.prio)
     }
   }
 
@@ -79,8 +81,8 @@ function App() {
       setEditingTodo(null)
       setEditName("")
       setEditGruppe("")
-      setEditEnde("")
-      setEditPrio("")
+      setEditEnde(0)
+      setEditPrio(0)
       loadTodos()
     }
   }
@@ -134,8 +136,8 @@ function App() {
                     todos.map((value) => <tr key={value.id}>
                       <td onDoubleClick={editTodo(value.id)}> {editingTodo === value.id ? <input onKeyPress={sendEditTodo} onChange={event => setEditName(event.target.value)} type="text" id="editName" name="editName" placeholder={value.name} /> : value.name}</td>
                       <td onDoubleClick={editTodo(value.id)}> {editingTodo === value.id ? <input onKeyPress={sendEditTodo} onChange={event => setEditGruppe(event.target.value)} type="text" id="editGruppe" name="editGruppe" placeholder={value.gruppe} /> : value.gruppe}</td>
-                      <td onDoubleClick={editTodo(value.id)}> {editingTodo === value.id ? <input onKeyPress={sendEditTodo} onChange={event => setEditPrio(event.target.value)} type="number" id="editPrio" name="editPrio" placeholder={value.prio?.toString()} /> : value.prio}</td>
-                      <td onDoubleClick={editTodo(value.id)}> {editingTodo === value.id ? <input onKeyPress={sendEditTodo} onChange={event => setEditEnde(event.target.value)} type="number" id="editEnde" name="editEnde" placeholder={value.ende?.toString()} /> : value.ende}</td>
+                      <td onDoubleClick={editTodo(value.id)}> {editingTodo === value.id ? <input onKeyPress={sendEditTodo} onChange={event => setEditPrio(parseInt(event.target.value))} type="number" id="editPrio" name="editPrio" placeholder={value.prio?.toString()} /> : value.prio}</td>
+                      <td onDoubleClick={editTodo(value.id)}> {editingTodo === value.id ? <input onKeyPress={sendEditTodo} onChange={event => setEditEnde(parseInt(event.target.value))} type="number" id="editEnde" name="editEnde" placeholder={value.ende?.toString()} /> : value.ende}</td>
                       <td onDoubleClick={editTodo(value.id)}> {value.erstellt.toString()}</td>
                       <td onDoubleClick={deleteFinished(value.id)}> {value.fertig ? <>&#9745;</> : <button onClick={createMarkFinished(value.id)}>Fertig</button>}</td>
                       <td> {<button onClick={deleteTodo(value.id)}>Löschen</button>}</td>
